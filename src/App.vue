@@ -9,7 +9,7 @@ import TheNavigation from "./components/TheNavigation.vue";
    <TheNavigation />
   </template>
   <template #default>
-    <router-view></router-view>
+    <router-view :key="$route.path"></router-view>
   </template>
   <template #footer>
     <p class="mt-5 mb-3 text-body-secondary text-center fixed-bottom">&copy; 2017–2023</p>

@@ -3,16 +3,30 @@ import {ref} from "vue";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg"
+import {useAuthStore} from "../../stores/authStore.js";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+const login = useAuthStore()
 
 const username = ref('');
 const password = ref('');
 
+const handleLoginSubmit = async () => {
+  await login.authentication({username: username.value, password: password.value})
+  const token = login.token
+  console.log(token)
+
+  if (token) {
+    await router.push("/")
+  }
+}
 
 </script>
 
 <template>
     <div class="col-12 col-md-6 col-lg-5">
-      <form>
+      <form @submit.prevent="handleLoginSubmit">
         <div class="text-center">
           <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
