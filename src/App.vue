@@ -12,7 +12,7 @@ import TheNavigation from "./components/TheNavigation.vue";
     <router-view :key="$route.path"></router-view>
   </template>
   <template #footer>
-    <p class="mt-5 mb-3 text-body-secondary text-center fixed-bottom">&copy; 2017–2023</p>
+    <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2017–2023</p>
   </template>
 </BaseLayout>
 

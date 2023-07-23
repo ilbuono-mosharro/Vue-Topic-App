@@ -1,16 +1,10 @@
 <script setup>
-
+import TheMessagges from "../../components/TheMessagges.vue";
 </script>
 
 <template>
-  <div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Well done!</h4>
-    <p>You have logged out successfully.</p>
-    <hr>
-    <router-link to="/" class="text-decoration-underline text-success">
-      Go back to home
-    </router-link>
-  </div>
+  <TheMessagges p-class="alert alert-success" p-htext="Well done!" p-text="You have logged out successfully."
+                p-to="/" p-link-text="Go back to home" />
 </template>
 
 <style scoped>
