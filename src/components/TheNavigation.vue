@@ -14,7 +14,7 @@ const toggleMenu = () => {
 
 const handleLogOut = async () => {
   await authentication.logOut()
-  await router.push({name: 'home'})
+  await router.push({name: 'logout'})
 }
 </script>
 

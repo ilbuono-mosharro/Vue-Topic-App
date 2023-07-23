@@ -1,9 +1,11 @@
 import {createRouter, createWebHistory} from "vue-router";
 import TheHome from "../views/TheHome.vue";
 import {useAuthStore} from "../stores/authStore.js";
+
 const routes = [
     {path: "/", component: TheHome, name: "home", meta: { requiresAuth: true }},
     {path: "/login", component: () => import("../views/auth/TheLogin.vue"), name: "login"},
+    {path: "/logout", component: () => import("../views/auth/TheLogout.vue"), name: "logout"},
 ]
 
 const router = createRouter({
