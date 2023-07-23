@@ -1,12 +1,12 @@
 <script setup>
 import {useAuthStore} from "../stores/authStore.js";
 
-const authentication = useAuthStore()
-console.log(authentication.token + " home page")
+const token = useAuthStore()
+
 </script>
 
 <template>
-<h1>Home page {{authentication.token}}</h1>
+<h1>Home page {{token.token}}</h1>
 </template>
 
 <style scoped>
