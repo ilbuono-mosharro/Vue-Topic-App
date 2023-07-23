@@ -3,19 +3,21 @@
 </script>
 
 <template>
-  <div class="container">
     <header>
       <slot name="header"></slot>
     </header>
-    <main>
-      <slot></slot>
+    <main class="container mt-4 py-5">
+      <div class="row justify-content-center align-items-center py-5">
+        <slot></slot>
+      </div>
     </main>
     <footer>
       <slot name="footer"></slot>
     </footer>
-  </div>
 </template>
 
-<style scoped>
-
+<style>
+body {
+  padding-top: 56px;
+}
 </style>

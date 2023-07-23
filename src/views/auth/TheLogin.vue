@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import TheInputField from "../../components/TheInputField.vue";
+import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg"
 
 const username = ref('');
@@ -10,7 +11,6 @@ const password = ref('');
 </script>
 
 <template>
-  <div class="row justify-content-center align-items-center">
     <div class="col-12 col-md-6 col-lg-5">
       <form>
         <div class="text-center">
@@ -21,10 +21,9 @@ const password = ref('');
                p-required />
         <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
                p-label="Password" p-required />
-        <Button class="btn btn-primary w-100 py-2"/>
+        <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit" p-text="Login"/>
       </form>
     </div>
-  </div>
 </template>
 
 <style scoped>

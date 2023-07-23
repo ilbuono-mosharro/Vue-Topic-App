@@ -9,7 +9,7 @@ const toggleMenu = () => {
 
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
-    <div class="container-fluid">
+    <div class="container">
       <router-link class="navbar-brand" to="/">Vue Topics</router-link>
       <button class="navbar-toggler p-0 border-0" :class="{ 'collapsed' : showMenu}" type="button" @click="toggleMenu"
               id="navbarSideCollapse" aria-label="Toggle navigation">
