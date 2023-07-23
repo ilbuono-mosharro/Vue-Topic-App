@@ -8,6 +8,12 @@ import TheNavigation from "./components/TheNavigation.vue";
   <template #header>
    <TheNavigation />
   </template>
+  <template #default>
+    <router-view></router-view>
+  </template>
+  <template #footer>
+    <p class="mt-5 mb-3 text-body-secondary text-center fixed-bottom">&copy; 2017–2023</p>
+  </template>
 </BaseLayout>
 
 </template>
