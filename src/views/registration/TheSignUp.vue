@@ -1,12 +1,15 @@
 <script setup>
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 import {useSignUpStore} from "../../stores/signUpStore.js";
 import TheAlert from "../../components/TheAlert.vue";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg";
 
+
 const registration = useSignUpStore()
+const router = useRouter()
 
 const username = ref('')
 const firstName = ref('')
@@ -28,6 +31,7 @@ const handleSignUp = async () => {
   })
   if (registration.data) {
     registration.$reset()
+    await router.push({name: 'sgMessagge'})
   } else {
     closeButton.value = true
   }
