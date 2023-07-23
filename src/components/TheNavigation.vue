@@ -1,9 +1,20 @@
 <script setup>
 import {ref} from "vue";
+import {useAuthStore} from "../stores/authStore.js";
+import {useRouter} from "vue-router";
 
 const showMenu = ref(false)
+
+const authentication = useAuthStore()
+const router = useRouter()
+
 const toggleMenu = () => {
   showMenu.value = !showMenu.value
+}
+
+const handleLogOut = async () => {
+  await authentication.logOut()
+  await router.push({name: 'home'})
 }
 </script>
 
@@ -22,7 +33,11 @@ const toggleMenu = () => {
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
         </ul>
-        <div class="button d-flex justify-content-end">
+        <div v-if="authentication.token">
+<!--          <router-link :to="`/profile/${authStore.token}`" class="btn btn-light me-3">Profile</router-link>-->
+          <button class="btn btn-primary" @click="handleLogOut">Log out</button>
+        </div>
+        <div v-else class="button d-flex justify-content-end">
           <router-link to="/sign-up" class="btn btn-primary me-3">Sign Up</router-link>
           <router-link to="/login" class="btn btn-success">Login</router-link>
         </div>
