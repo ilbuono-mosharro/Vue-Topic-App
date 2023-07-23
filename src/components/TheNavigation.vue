@@ -22,7 +22,7 @@ const toggleMenu = () => {
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
         </ul>
-        <div v-else class="button d-flex justify-content-end">
+        <div class="button d-flex justify-content-end">
           <router-link to="/sign-up" class="btn btn-primary me-3">Sign Up</router-link>
           <router-link to="/login" class="btn btn-success">Login</router-link>
         </div>
