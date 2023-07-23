@@ -42,7 +42,9 @@ const handleLoginSubmit = async () => {
                p-required />
         <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
                p-label="Password" p-required />
-        <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit" p-text="Login"/>
+        <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
+                   :p-text="login.loading ? 'I\'m checking your credentials' : 'Sign In'"
+                   :p-disabled="login.loading" />
       </form>
     </div>
 </template>

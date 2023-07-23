@@ -11,8 +11,8 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async authentication(payload) {
-            this.loading = true
             try {
+                this.loading = true
                 const response = await axios.post(`${BaseUrl}/accounts/api-token-auth/`, payload)
                 this.token = response.data.token
                 localStorage.setItem('token', JSON.stringify(this.token));
@@ -23,7 +23,6 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         async logOut() {
-            this.loading = true
             try {
                 await axios.post(`${BaseUrl}/accounts/logout/`, {}, {
                     headers: {
@@ -34,8 +33,6 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.removeItem('token')
             } catch (e) {
                 this.error = e.message
-            } finally {
-                this.loading = false
             }
         },
     },
