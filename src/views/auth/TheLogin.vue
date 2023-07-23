@@ -3,6 +3,7 @@ import {ref} from "vue";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg"
+import TheAlert from "../../components/TheAlert.vue";
 import {useAuthStore} from "../../stores/authStore.js";
 import {useRouter} from "vue-router";
 
@@ -11,14 +12,18 @@ const login = useAuthStore()
 
 const username = ref('');
 const password = ref('');
+const closeButton = ref(false)
+
+const closeAlert = () => closeButton.value = false
 
 const handleLoginSubmit = async () => {
   await login.authentication({username: username.value, password: password.value})
   const token = login.token
-  console.log(token)
 
   if (token) {
     await router.push("/")
+  } else {
+    closeButton.value = true
   }
 }
 
@@ -26,6 +31,8 @@ const handleLoginSubmit = async () => {
 
 <template>
     <div class="col-12 col-md-6 col-lg-5">
+      <TheAlert v-if="login.error && closeButton" p-class="alert alert-warning alert-dismissible fade show"
+             @close="closeAlert" p-text="Unable to log in with provided credentials."/>
       <form @submit.prevent="handleLoginSubmit">
         <div class="text-center">
           <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
