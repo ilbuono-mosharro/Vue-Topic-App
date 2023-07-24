@@ -1,22 +1,19 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
 
-const base_url = "http://127.0.0.1:8000/api"
-
 
 export const useTopicsStore = defineStore('fetchTopicsStore', {
     state: () => (
         {
             data: null,
-            loading: false,
+            loading: true,
             error: null,
         }
     ),
     actions: {
         async fetchTopics() {
-            this.loading = true
             try {
-                const response = await axios.get(`${base_url}/topics/`)
+                const response = await axios.get("http://127.0.0.1:8000/api/topics/")
                 this.data = response.data
             } catch (error) {
                 this.error = error.response.data
@@ -26,7 +23,7 @@ export const useTopicsStore = defineStore('fetchTopicsStore', {
         },
     },
     getters: {
-        total: (state) => state.data ? state.data.length : 0,
+        total: (state) => state?.data ? state.data.length : 0,
     },
 })
 

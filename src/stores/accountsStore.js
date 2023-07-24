@@ -2,22 +2,19 @@ import {defineStore} from 'pinia'
 import axios from "axios";
 import {useAuthStore} from "./authStore.js";
 
-const base_url = "http://127.0.0.1:8000/api"
-
 export const useAccountsStore = defineStore('accounts', {
     state: () => ({
         data: null,
         error: null,
-        loading: false,
+        loading: true,
         done: null,
-        derror: null,
+        errors: null,
     }),
     actions: {
         async profile() {
             const auth = useAuthStore()
-            this.loading = true
             try {
-                const response = await axios.get(`${base_url}/accounts/profile/`,
+                const response = await axios.get("http://127.0.0.1:8000/api/accounts/profile/",
                     {
                         headers: {
                             "Authorization": `Token ${auth.token}`,
@@ -33,7 +30,7 @@ export const useAccountsStore = defineStore('accounts', {
         async delete() {
             const auth = useAuthStore()
             try {
-                const response = await axios.delete(`${base_url}/accounts/profile/`,
+                const response = await axios.delete("http://127.0.0.1:8000/api/accounts/profile/",
                     {
                         headers: {
                             "Authorization": `Token ${auth.token}`,
@@ -41,7 +38,7 @@ export const useAccountsStore = defineStore('accounts', {
                     })
                 this.done = response.data
             } catch (e) {
-                this.derror = e.response.data
+                this.errors = e.response.data
             }
         },
     },

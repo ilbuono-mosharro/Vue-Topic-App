@@ -4,10 +4,10 @@ import {useRoute, useRouter} from "vue-router";
 import {useUpdateTopicsStore} from "../../stores/topics/updateTopicStore.js";
 import {useGetTopicStore} from "../../stores/topics/getTopicStore.js";
 import {useCategoryStore} from "../../stores/categoryStore.js";
+import {useAlertStore} from "../../stores/alertStore.js";
 import VueLogo from "../../assets/vue.svg";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
-import {useAlertStore} from "../../stores/alertStore.js";
 
 const topic = useUpdateTopicsStore()
 const single = useGetTopicStore()
@@ -64,7 +64,7 @@ const handleUpdateTopic = async () => {
       <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
                      p-label="Description" p-id="id_body" p-required/>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
-                 :p-text="topic.loading ? 'I am updateded the data' : 'Add'"
+                 :p-text="topic.loading ? 'I am updated the data' : 'Add'"
                  :p-disabled="!!topic.loading"/>
     </form>
   </div>

@@ -2,27 +2,25 @@ import {defineStore} from 'pinia'
 import axios from "axios";
 import {useAuthStore} from "../authStore.js";
 
-const base_url = "http://127.0.0.1:8000/api"
-
 
 export const useAddTopicStore = defineStore('addTopicStore', {
     state: () => (
         {
             data: null,
-            loading: false,
+            loading: true,
             error: null,
         }
     ),
     actions: {
         async add(payload) {
-            this.loading = true;
+            const auth = useAuthStore()
             try {
-                const auth = useAuthStore()
-                const response = await axios.post(`${base_url}/topics/`, payload, {
-                    headers: {
-                        "Authorization": `Token ${auth.token}`,
-                    },
-                })
+                const response = await axios.post("http://127.0.0.1:8000/api/topics/", payload,
+                    {
+                        headers: {
+                            "Authorization": `Token ${auth.token}`,
+                        },
+                    })
                 this.data = response.data
             } catch (e) {
                 this.error = e.response.data

@@ -1,19 +1,18 @@
 import {defineStore} from 'pinia'
 import axios from 'axios'
 
-const BaseUrl = "http://127.0.0.1:8000/api"
-
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        loading: null,
+        loading: true,
         error: null,
         token: JSON.parse(localStorage.getItem('token')) || null,
     }),
     actions: {
         async authentication(payload) {
-            this.loading = true
             try {
-                const response = await axios.post(`${BaseUrl}/accounts/api-token-auth/`, payload)
+                const response = await axios.post(
+                    "http://127.0.0.1:8000/api/accounts/api-token-auth/", payload
+                )
                 this.token = response.data.token
                 localStorage.setItem('token', JSON.stringify(this.token));
             } catch (e) {
@@ -24,7 +23,7 @@ export const useAuthStore = defineStore('auth', {
         },
         async logOut() {
             try {
-                await axios.post(`${BaseUrl}/accounts/logout/`, {}, {
+                await axios.post("http://127.0.0.1:8000/api/accounts/logout/", {}, {
                     headers: {
                         "Authorization": `Token ${this.token}`
                     }
@@ -38,7 +37,7 @@ export const useAuthStore = defineStore('auth', {
     },
     getters: {
         isAuthenticated: (state) => {
-            return state.token !== null;
+            return state?.token !== null;
         },
     },
 })
