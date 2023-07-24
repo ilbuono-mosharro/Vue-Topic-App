@@ -3,7 +3,7 @@ import TheHome from "../views/TheHome.vue";
 import {useAuthStore} from "../stores/authStore.js";
 
 const routes = [
-    {path: "/", component: TheHome, name: "home", meta: { requiresAuth: true }},
+    {path: "/", component: TheHome, name: "home"},
     {path: "/sign-up", component: () => import("../views/registration/TheSignUp.vue"), name: "signup"},
     {path: "/sign-up/messagge", component: () => import("../views/messagges/TheSignUpMessagge.vue"),
         name: "sgMessagge"},
