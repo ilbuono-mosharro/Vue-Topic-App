@@ -28,8 +28,8 @@ onMounted(async () => {
           <Loader class-name="spinner-border text-primary wh-7"/>
         </div>
         <div v-else class="card-body">
-          <h1>{{ topic.data.subject }}</h1>
-          <p>{{ topic.data.category.name }}</p>
+          <h1>{{ topic.data?.subject }}</h1>
+          <p>{{ topic.data?.category.name }}</p>
           <div class="d-flex">
             <div class="flex-shrink-0">
               <img :src="topic.data?.starter?.avatar ? topic.data?.starter?.avatar : VueImage" alt="..."

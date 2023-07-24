@@ -1,5 +1,5 @@
 <script setup>
-    import {useTopicsStore} from "../../stores/topicStore.js";
+    import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
     import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
     import {onMounted} from "vue";
     import VueImage from "../../assets/vue.svg"
