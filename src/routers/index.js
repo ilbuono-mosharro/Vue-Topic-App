@@ -3,28 +3,42 @@ import TheHome from "../views/TheHome.vue";
 import {useAuthStore} from "../stores/authStore.js";
 
 const routes = [
-    {path: "/", component: TheHome, name: "home"},
-    {path: "/topic/:id", component: () => import("../views/topics/TheTopic.vue"), name: "topic"},
-    {path: "/topic/add", component: () => import("../views/topics/TheAddTopic.vue"), name: "addTopic"},
+    {
+        path: "/", component: TheHome, name: "home"
+    },
+    {
+        path: "/topic/:id", component: () => import("../views/topics/TheTopic.vue"), name: "topic"
+    },
+    {
+        path: "/topic/add", component: () => import("../views/topics/TheAddTopic.vue"), name: "addTopic",
+        meta: {requiresAuth: true}
+    },
     {
         path: "/topic/update/:id", component: () => import("../views/topics/TheUpdateTopic.vue"),
-        name: "updateTopic"
+        name: "updateTopic", meta: {requiresAuth: true},
     },
-    {path: "/sign-up", component: () => import("../views/registration/TheSignUp.vue"), name: "signup"},
+    {
+        path: "/sign-up", component: () => import("../views/registration/TheSignUp.vue"), name: "signup"
+    },
     {
         path: '/profile', component: () => import("../views/accounts/TheProfile.vue"), name: "profile",
-        meta: {requiresAuth: true},
+        meta: {requiresAuth: true}
     },
     {
         path: '/deleted', component: () => import("../views/accounts/TheUserDeleteMessagge.vue"),
-        name: "deleted"
+        name: "deleted", meta: {requiresAuth: true},
     },
     {
         path: "/sign-up/messagge", component: () => import("../views/messagges/TheSignUpMessagge.vue"),
         name: "sgMessagge"
     },
-    {path: "/login", component: () => import("../views/auth/TheLogin.vue"), name: "login"},
-    {path: "/logout", component: () => import("../views/auth/TheLogout.vue"), name: "logout"},
+    {
+        path: "/login", component: () => import("../views/auth/TheLogin.vue"), name: "login"
+    },
+    {
+        path: "/logout", component: () => import("../views/auth/TheLogout.vue"), name: "logout",
+        meta: {requiresAuth: true},
+    },
 ]
 
 const router = createRouter({
