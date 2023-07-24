@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import App from './App.vue'
 import {createPinia} from "pinia";

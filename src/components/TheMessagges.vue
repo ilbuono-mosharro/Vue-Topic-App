@@ -16,7 +16,7 @@ const props = defineProps({
     required: true,
     type: String,
   },
-  pLinkText : {
+  pLinkText: {
     required: true,
     type: String,
   },
@@ -25,11 +25,11 @@ const props = defineProps({
 
 <template>
   <div :class="props.pClass" role="alert">
-    <h4 class="alert-heading">{{props.pHtext}}</h4>
-    <p>{{props.pText}}</p>
+    <h4 class="alert-heading">{{ props.pHtext }}</h4>
+    <p>{{ props.pText }}</p>
     <hr>
     <router-link :to="props.pTo" class="text-decoration-underline text-success">
-     {{props.pLinkText}}
+      {{ props.pLinkText }}
     </router-link>
   </div>
 </template>

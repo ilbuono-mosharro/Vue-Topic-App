@@ -39,11 +39,10 @@ const handleSignUp = async () => {
 </script>
 
 <template>
-  <div class="row justify-content-center align-items-center">
     <div class="col-12 col-md-6 col-lg-5">
       <TheAlert v-if="registration.error && closeButton" p-class="alert alert-warning alert-dismissible fade show"
                 @close="closeAlert" p-text="Please fill in all fields correctly and try again."/>
-      <form @submit.prevent="handleSignUp">
+      <form @submit.prevent="handleSignUp" class="py-4">
         <div class="text-center">
           <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
           <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
@@ -70,7 +69,6 @@ const handleSignUp = async () => {
                    :p-disabled="registration.loading"/>
       </form>
     </div>
-  </div>
 </template>
 
 <style scoped>

@@ -8,8 +8,8 @@ const auth = useAuthStore()
 export const useVoteStore = defineStore('vote', {
     state: () => (
         {
-            topic:null,
-            topicDown:null,
+            topic: null,
+            topicDown: null,
             upvoteNum: null,
             upError: null,
             downvoteNum: null,

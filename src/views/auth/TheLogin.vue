@@ -30,23 +30,23 @@ const handleLoginSubmit = async () => {
 </script>
 
 <template>
-    <div class="col-12 col-md-6 col-lg-5">
-      <TheAlert v-if="login.error && closeButton" p-class="alert alert-warning alert-dismissible fade show"
-             @close="closeAlert" p-text="Unable to log in with provided credentials."/>
-      <form @submit.prevent="handleLoginSubmit">
-        <div class="text-center">
-          <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-        </div>
-        <TheInputField v-model="username" p-type="text" p-class="form-control" p-placeholder="Username" p-label="Username"
-               p-required />
-        <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
-               p-label="Password" p-required />
-        <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
-                   :p-text="login.loading ? 'I\'m checking your credentials' : 'Sign In'"
-                   :p-disabled="login.loading" />
-      </form>
-    </div>
+  <div class="col-12 col-md-6 col-lg-5">
+    <TheAlert v-if="login.error && closeButton" p-class="alert alert-warning alert-dismissible fade show"
+              @close="closeAlert" p-text="Unable to log in with provided credentials."/>
+    <form @submit.prevent="handleLoginSubmit" class="py-4">
+      <div class="text-center">
+        <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      </div>
+      <TheInputField v-model="username" p-type="text" p-class="form-control" p-placeholder="Username" p-label="Username"
+                     p-required/>
+      <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
+                     p-label="Password" p-required/>
+      <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
+                 :p-text="login.loading ? 'I\'m checking your credentials' : 'Sign In'"
+                 :p-disabled="login.loading"/>
+    </form>
+  </div>
 </template>
 
 <style scoped>

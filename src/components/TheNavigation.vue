@@ -19,10 +19,10 @@ const handleLogOut = async () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark container rounded py-3" aria-label="Main navigation">
     <div class="container">
       <router-link class="navbar-brand" to="/">Vue Topics</router-link>
-      <button class="navbar-toggler p-0 border-0" :class="{ 'collapsed' : showMenu}" type="button" @click="toggleMenu"
+      <button class="navbar-toggler p-0 border-0 rounded-4" :class="{ 'collapsed' : showMenu}" type="button" @click="toggleMenu"
               id="navbarSideCollapse" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,12 +34,12 @@ const handleLogOut = async () => {
           </li>
         </ul>
         <div v-if="authentication.token">
-<!--          <router-link :to="`/profile/${authStore.token}`" class="btn btn-light me-3">Profile</router-link>-->
-          <button class="btn btn-primary" @click="handleLogOut">Log out</button>
+          <router-link to="/profile" class="btn btn-success rounded-4 me-3">Profile</router-link>
+          <button class="btn btn-secondary rounded-4" @click="handleLogOut">Log out</button>
         </div>
         <div v-else class="button d-flex justify-content-end">
-          <router-link to="/sign-up" class="btn btn-primary me-3">Sign Up</router-link>
-          <router-link to="/login" class="btn btn-success">Login</router-link>
+          <router-link to="/sign-up" class="btn btn-warning rounded-4 me-3">Sign Up</router-link>
+          <router-link to="/login" class="btn btn-primary rounded-4">Login</router-link>
         </div>
       </div>
     </div>
