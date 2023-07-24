@@ -6,13 +6,14 @@ export const useUpdateTopicsStore = defineStore('updateTopicStore', {
     state: () => (
         {
             data: null,
-            loading: true,
+            loading: false,
             error: null,
         }
     ),
     actions: {
         async update(id, payload) {
             const auth = useAuthStore()
+            this.loading = true
             try {
                 const response = await axios.put(`http://127.0.0.1:8000/api/topics/${id}/`,payload,
                     {

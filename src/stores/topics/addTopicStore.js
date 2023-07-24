@@ -7,13 +7,14 @@ export const useAddTopicStore = defineStore('addTopicStore', {
     state: () => (
         {
             data: null,
-            loading: true,
+            loading: false,
             error: null,
         }
     ),
     actions: {
         async add(payload) {
             const auth = useAuthStore()
+            this.loading = true
             try {
                 const response = await axios.post("http://127.0.0.1:8000/api/topics/", payload,
                     {
