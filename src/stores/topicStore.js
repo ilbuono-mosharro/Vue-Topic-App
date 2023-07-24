@@ -41,22 +41,6 @@ export const useTopicsStore = defineStore('topics', {
                 this.loading = false
             }
         },
-        async addTopic(payload) {
-            try {
-                this.loading = true;
-                const auth = useAuthStore()
-                const response = await axios.post(`${base_url}/topics/`, payload, {
-                    headers: {
-                        "Authorization": `Token ${auth.token}`,
-                    },
-                })
-                this.added = response.data
-            } catch (error) {
-                this.topicerror = error.response.data
-            } finally {
-                this.loading = false;
-            }
-        },
         async deleteTopic(id, token) {
             try {
                 const response = await axios.delete(`${base_url}/topics/${id}/`, {
