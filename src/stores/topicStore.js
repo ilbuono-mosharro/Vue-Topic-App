@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
+import {useAuthStore} from "./authStore.js";
 
 const base_url = "http://127.0.0.1:8000/api"
 
@@ -39,12 +40,13 @@ export const useTopicsStore = defineStore('topics', {
                 this.loading = false
             }
         },
-        async addTopic(payload, token) {
+        async addTopic(payload) {
             try {
                 this.loading = true;
+                const auth = useAuthStore()
                 const response = await axios.post(`${base_url}/topics/`, payload, {
                     headers: {
-                        "Authorization": token,
+                        "Authorization": `Token ${auth.token}`,
                     },
                 })
                 this.added = response.data
