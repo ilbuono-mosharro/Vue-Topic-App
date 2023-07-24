@@ -16,8 +16,8 @@ export const useUpdateTopicsStore = defineStore('updateTopicStore', {
     actions: {
         async update(id, payload) {
             const auth = useAuthStore()
+            this.loading = true;
             try {
-                this.loading = true;
                 const response = await axios.put(`${base_url}/topics/${id}/`, payload, {
                     headers: {
                         "Authorization": `Token ${auth.token}`,

@@ -14,8 +14,8 @@ export const useGetTopicStore = defineStore('getTopicStore', {
     ),
     actions: {
         async get(id) {
+            this.loading = true
             try {
-                this.loading = true
                 const response = await axios.get(`${base_url}/topics/${id}/`)
                 this.data = response.data
             } catch (e) {

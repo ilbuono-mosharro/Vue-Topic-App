@@ -13,8 +13,8 @@ export const useCategoryStore = defineStore('category', {
     ),
     actions: {
         async fetchCategories() {
+            this.loading = true
             try {
-                this.loading = true
                 const response = await axios.get(`${base_url}/categories/`)
                 this.data = response.data
             } catch (e) {

@@ -15,8 +15,8 @@ export const useDeleteTopicsStore = defineStore('deleteTopicStore', {
     ),
     actions: {
         async delete(id) {
+            const auth = useAuthStore()
             try {
-                const auth = useAuthStore()
                 const response = await axios.delete(`${base_url}/topics/${id}/`, {
                     headers: {
                         "Authorization": `Token ${auth.token}`,

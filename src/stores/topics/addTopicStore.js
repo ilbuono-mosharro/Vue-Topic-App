@@ -15,8 +15,8 @@ export const useAddTopicStore = defineStore('addTopicStore', {
     ),
     actions: {
         async add(payload) {
+            this.loading = true;
             try {
-                this.loading = true;
                 const auth = useAuthStore()
                 const response = await axios.post(`${base_url}/topics/`, payload, {
                     headers: {

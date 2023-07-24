@@ -10,8 +10,8 @@ export const useSignUpStore = defineStore('signUp', {
     }),
     actions: {
         async signUp(payload) {
+            this.loading = true;
             try {
-                this.loading = true;
                 const response = await axios.post(`${base_url}/accounts/sign-up/`, payload)
                 this.data = response.data
             } catch (error) {
