@@ -53,21 +53,6 @@ export const useTopicsStore = defineStore('topics', {
                 this.error = error.response.data
             }
         },
-        async updateTopic(id, payload, token) {
-            try {
-                this.loading = true;
-                const response = await axios.put(`${base_url}/topics/${id}/`, payload, {
-                    headers: {
-                        "Authorization": token,
-                    },
-                })
-                this.updated = response.data
-            } catch (error) {
-                this.error = error.response.data
-            } finally {
-                this.loading = false;
-            }
-        },
     },
     getters: {
         total: (state) => state.data ? state.data.length : 0,
