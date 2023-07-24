@@ -9,6 +9,7 @@ export const useVoteStore = defineStore('vote', {
     state: () => (
         {
             topic:null,
+            topicDown:null,
             upvoteNum: null,
             upError: null,
             downvoteNum: null,
@@ -25,9 +26,9 @@ export const useVoteStore = defineStore('vote', {
                 })
                 this.topic = response.data
                 this.upvoteNum = this.topic.upvote_count
-                this.downvoteNum = this.topicvote.downvote_count
+                this.downvoteNum = this.topic.downvote_count
             } catch (e) {
-                this.upError = e.response.data
+                this.upError = e.message
             }
         },
         async downvote(id) {
@@ -37,11 +38,11 @@ export const useVoteStore = defineStore('vote', {
                         "Authorization": `Token ${auth.token}`,
                     },
                 })
-                this.topic = response.data
-                this.downvoteNum = this.topic.downvote_count
-                this.upvoteNum = this.topic.upvote_count
+                this.topicDown = response.data
+                this.downvoteNum = this.topicDown.downvote_count
+                this.upvoteNum = this.topicDown.upvote_count
             } catch (e) {
-                this.downError = e.response.data
+                this.downError = e.message
             }
         },
     },
