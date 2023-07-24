@@ -1,9 +1,11 @@
 <script setup>
     import {useTopicsStore} from "../../stores/topicStore.js";
+    import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
     import {onMounted} from "vue";
     import VueImage from "../../assets/vue.svg"
 
     const topics = useTopicsStore()
+    const topic = useDeleteTopicsStore()
     // const user = useRegistrationStore()
 
 
@@ -15,10 +17,9 @@
         // }
     })
 
-    // const deleteTopic = async (id) => {
-    //     await topicStore.deleteTopic(id, `Token ${token}`)
-    //     await topicStore.fetchTopics()
-    // }
+    const deleteTopic = async (id) => {
+        await topic.delete(id)
+    }
     //
     //
     // const showMyTopic = () => {
@@ -79,9 +80,9 @@
                     <th class="fw-normal">{{ topic.downvote_count }}</th>
                     <th class="fw-normal">{{ topic.created_data }}</th>
                     <th>
-<!--                        <form v-if="token ? user?.profile?.username === topic?.starter?.username : false" @submit="deleteTopic(topic.id)">-->
-<!--                            <button class="btn btn-danger btn-sm">Delete</button>-->
-<!--                        </form>-->
+                        <form @submit="deleteTopic(topic.id)">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </th>
                     <th>
                         <router-link :to="`/topic/update/${topic.id}`" class="btn btn-warning btn-sm">Update</router-link>
