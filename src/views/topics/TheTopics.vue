@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted} from "vue";
 import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
 import {useAuthStore} from "../../stores/authStore.js";
 import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
@@ -7,7 +7,7 @@ import {useAccountsStore} from "../../stores/accountsStore.js";
 import VueImage from "../../assets/vue.svg"
 import BannerFramework from "../../components/BannerFramework.vue";
 import TheLoader from "../../components/TheLoader.vue";
-import Themodal from "../../components/Themodal.vue";
+import TheModal from "../../components/TheModal.vue";
 
 
 const user = useAccountsStore()
@@ -15,7 +15,6 @@ const topics = useTopicsStore()
 const auth = useAuthStore()
 const topic = useDeleteTopicsStore()
 
-const open = ref(true)
 
 onMounted(async () => {
   await topics.fetchTopics()
@@ -30,23 +29,24 @@ const deleteTopic = async (id) => {
 
 
 const showMyTopic = () => {
-    if (auth.token) {
-      topics.data = topics.data.filter(topic => topic?.starter?.username === user?.data?.username)
-      return topics.data
-    }
+  if (auth.token) {
+    topics.data = topics.data.filter(topic => topic?.starter?.username === user?.data?.username)
+    return topics.data
+  }
 }
 const showAll = async () => {
-    if (auth.token) {
-        await topics.fetchTopics()
-    }
+  if (auth.token) {
+    await topics.fetchTopics()
+  }
 }
 </script>
 
 <template>
   <div class="p-3 bg-body rounded-4 shadow-sm">
-            <div v-if="topics.loading" class="d-flex justify-content-center align-items-center py-5">
-                <TheLoader p-class="spinner-border text-primary wh-7"/>
-            </div>
+    <BannerFramework />
+    <div v-if="topics.loading" class="d-flex justify-content-center align-items-center py-5">
+      <TheLoader p-class="spinner-border text-primary wh-7"/>
+    </div>
     <div v-else class="table-responsive">
       <div class="d-flex flex-row justify-content-between align-items-center mb-4">
         <div class="p-2">
@@ -87,8 +87,8 @@ const showAll = async () => {
           <th class="fw-normal">{{ topic.downvote_count }}</th>
           <th class="fw-normal">{{ topic.created_data }}</th>
           <th>
-            <Themodal v-if="auth.token ? user.data?.username === topic.starter?.username : false"
-                      p-id="topic.id" p-text="Are you sure you want to delete it?"  p-button="Delete"
+            <TheModal v-if="auth.token ? user.data?.username === topic.starter?.username : false"
+                      p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
                       :p-title="`Delete ${topic.subject}`"
                       pb-class="btn btn-danger rounded-4 btn-sm" @done="deleteTopic(topic.id)"/>
           </th>
@@ -104,14 +104,3 @@ const showAll = async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.modal {
-  position: fixed;
-  z-index: 999;
-  top: 20%;
-  left: 50%;
-  width: 300px;
-  margin-left: -150px;
-}
-</style>
