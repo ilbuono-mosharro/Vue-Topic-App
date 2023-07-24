@@ -14,7 +14,7 @@ export const useUpdateTopicsStore = defineStore('updateTopicStore', {
         }
     ),
     actions: {
-        async update(id, payload, token) {
+        async update(id, payload) {
             const auth = useAuthStore()
             try {
                 this.loading = true;

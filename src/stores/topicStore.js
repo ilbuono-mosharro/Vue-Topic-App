@@ -30,17 +30,6 @@ export const useTopicsStore = defineStore('topics', {
                 this.loading = false
             }
         },
-        async getTopic(id) {
-            try {
-                this.loading = true
-                const response = await axios.get(`${base_url}/topics/${id}/`)
-                this.topic = response.data
-            } catch (error) {
-                this.error = error.response.data
-            } finally {
-                this.loading = false
-            }
-        },
         async deleteTopic(id, token) {
             try {
                 const response = await axios.delete(`${base_url}/topics/${id}/`, {
