@@ -83,9 +83,9 @@
 <!--                            <button class="btn btn-danger btn-sm">Delete</button>-->
 <!--                        </form>-->
                     </th>
-<!--                    <th v-if="token ? user?.profile?.username === topic?.starter?.username : false">-->
-<!--                        <router-link :to="`/topic/update/${topic.id}`" class="btn btn-warning btn-sm">Update</router-link>-->
-<!--                    </th>-->
+                    <th>
+                        <router-link :to="`/topic/update/${topic.id}`" class="btn btn-warning btn-sm">Update</router-link>
+                    </th>
                 </tr>
                 </tbody>
             </table>

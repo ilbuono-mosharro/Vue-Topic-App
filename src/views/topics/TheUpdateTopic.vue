@@ -1,17 +1,20 @@
 <script setup>
 import {ref, onMounted} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useUpdateTopicsStore} from "../../stores/topics/updateTopicStore.js";
 import {useGetTopicStore} from "../../stores/topics/getTopicStore.js";
 import {useCategoryStore} from "../../stores/categoryStore.js";
 import VueLogo from "../../assets/vue.svg";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
+import {useAlertStore} from "../../stores/alertStore.js";
 
 const topic = useUpdateTopicsStore()
 const single = useGetTopicStore()
 const categories = useCategoryStore()
+const alert = useAlertStore()
 const route = useRoute()
+const router = useRouter()
 
 const subject = ref('')
 const category = ref('')
@@ -32,6 +35,11 @@ const handleUpdateTopic = async () => {
     category: category.value,
     body: body.value,
   })
+  if (topic.data) {
+    topic.$reset()
+    alert.addAlert("The topic has been successfully updated.")
+    await router.push({name:"home"})
+  }
 }
 </script>
 
@@ -45,6 +53,7 @@ const handleUpdateTopic = async () => {
         </div>
         <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject" p-label="Subject"
                        p-id="id_subject" p-required/>
+        <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
         <div class="form-floating mb-4">
           <select class="form-select" id="floatingSelect" v-model="category" aria-label="Floating label select example">
             <option disabled value="">Please select one</option>
