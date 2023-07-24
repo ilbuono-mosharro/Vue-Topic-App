@@ -44,7 +44,6 @@ const handleUpdateTopic = async () => {
 </script>
 
 <template>
-  <div class="row justify-content-center align-items-center">
     <div class="col-12 col-md-6 col-lg-5">
       <form @submit.prevent="handleUpdateTopic">
         <div class="text-center">
@@ -68,7 +67,6 @@ const handleUpdateTopic = async () => {
                 :p-disabled="!!topic.loading"/>
       </form>
     </div>
-  </div>
 </template>
 
 <style scoped>

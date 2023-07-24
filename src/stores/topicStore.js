@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
-import {useAuthStore} from "./authStore.js";
 
 const base_url = "http://127.0.0.1:8000/api"
 
@@ -11,11 +10,6 @@ export const useTopicsStore = defineStore('topics', {
             data: null,
             loading: false,
             error: null,
-            topicerror: null,
-            topic: null,
-            added:null,
-            deleted:null,
-            updated:null,
         }
     ),
     actions: {
@@ -28,18 +22,6 @@ export const useTopicsStore = defineStore('topics', {
                 this.error = error.response.data
             } finally {
                 this.loading = false
-            }
-        },
-        async deleteTopic(id, token) {
-            try {
-                const response = await axios.delete(`${base_url}/topics/${id}/`, {
-                    headers: {
-                        "Authorization": token,
-                    },
-                })
-                this.deleted = response.data
-            } catch (error) {
-                this.error = error.response.data
             }
         },
     },
