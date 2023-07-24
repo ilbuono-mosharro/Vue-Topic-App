@@ -63,7 +63,7 @@ onMounted(
       <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
                      p-id="id_body" p-label="Description" p-required/>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
-                 :p-text="topic.loading ? 'I am loading data' : 'Add'"
+                 :p-text="topic.loading ? 'I am sending the data' : 'Add'"
                  :p-disabled="!!topic.loading"/>
     </form>
   </div>
