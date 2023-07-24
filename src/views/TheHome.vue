@@ -1,5 +1,6 @@
 <script setup>
 import VueImage from ".././assets/vue.svg"
+import TheTopics from "./topics/TheTopics.vue";
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import VueImage from ".././assets/vue.svg"
       <h1 class="h6 mb-0 text-white lh-1">Vue js</h1>
     </div>
   </div>
+  <TheTopics />
 </template>
 
 <style scoped>
