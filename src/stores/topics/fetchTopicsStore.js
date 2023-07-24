@@ -14,8 +14,8 @@ export const useTopicsStore = defineStore('fetchTopicsStore', {
     ),
     actions: {
         async fetchTopics() {
+            this.loading = true
             try {
-                this.loading = true
                 const response = await axios.get(`${base_url}/topics/`)
                 this.data = response.data
             } catch (error) {
@@ -27,9 +27,6 @@ export const useTopicsStore = defineStore('fetchTopicsStore', {
     },
     getters: {
         total: (state) => state.data ? state.data.length : 0,
-        // mytopic: (state) => {
-        //     return state.data.filter((topic, user) => topic?.starter?.username === user)
-        // }
     },
 })
 

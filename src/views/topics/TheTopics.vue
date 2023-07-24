@@ -1,54 +1,58 @@
 <script setup>
-import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
-import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
 import {onMounted} from "vue";
+import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
+import {useAuthStore} from "../../stores/authStore.js";
+import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
+import {useAccountsStore} from "../../stores/accountsStore.js";
 import VueImage from "../../assets/vue.svg"
 import BannerFramework from "../../components/BannerFramework.vue";
+import TheLoader from "../../components/TheLoader.vue";
 
+
+const user = useAccountsStore()
 const topics = useTopicsStore()
+const auth = useAuthStore()
 const topic = useDeleteTopicsStore()
-// const user = useRegistrationStore()
-
 
 onMounted(async () => {
   await topics.fetchTopics()
-  // if (token) {
-  //     await user.userProfile(`Token ${token}`)
-  // }
+  if (auth.token) {
+    await user.profile()
+  }
 })
 
 const deleteTopic = async (id) => {
   await topic.delete(id)
 }
-//
-//
-// const showMyTopic = () => {
-//     if (token) {
-//         topicStore.data = topicStore.data.filter(topic => user?.profile?.username === topic?.starter?.username)
-//         return topicStore.data
-//     }
-// }
-// const showAll = async () => {
-//     if (token) {
-//         await topicStore.fetchTopics()
-//     }
-// }
+
+
+const showMyTopic = () => {
+  if (auth.token) {
+    topics.data = topics.data.filter(topic => topic?.starter?.username === user?.data?.username)
+    return topics.data
+  }
+}
+const showAll = async () => {
+  if (auth.token) {
+    await topics.fetchTopics()
+  }
+}
 </script>
 
 <template>
   <div class="p-3 bg-body rounded-4 shadow-sm">
-   <BannerFramework />
-    <!--        <div v-if="topicStore.loading" class="d-flex justify-content-center align-items-center">-->
-    <!--            <Loader class-name="spinner-border text-primary wh-7"/>-->
-    <!--        </div>-->
-    <div class="table-responsive">
+    <BannerFramework/>
+    <div v-if="topics.loading" class="d-flex justify-content-center align-items-center py-5">
+      <TheLoader p-class="spinner-border text-primary wh-7"/>
+    </div>
+    <div v-else class="table-responsive">
       <div class="d-flex flex-row justify-content-between align-items-center mb-4">
         <div class="p-2">
           <h5 class="pb-2 mb-0 text-center">{{ topics.total }} Topics</h5>
         </div>
         <div class="p-2">
-          <!--                    <button v-if="token" class="btn btn-link me-4" @click="showMyTopic">My topics</button>-->
-          <!--                    <button v-if="token" class="btn btn-link" @click="showAll">Show All</button>-->
+          <button v-if="auth.token" class="btn btn-link me-4" @click="showMyTopic">My topics</button>
+          <button v-if="auth.token" class="btn btn-link" @click="showAll">Show All</button>
         </div>
         <div class="p-2">
           <router-link to="/topic/add" class="btn btn-primary rounded-4">Add Topic</router-link>
@@ -81,12 +85,16 @@ const deleteTopic = async (id) => {
           <th class="fw-normal">{{ topic.downvote_count }}</th>
           <th class="fw-normal">{{ topic.created_data }}</th>
           <th>
-            <form @submit="deleteTopic(topic.id)">
+            <form v-if="auth.token ? user.data?.username === topic.starter?.username : false"
+                  @submit="deleteTopic(topic.id)">
               <button class="btn btn-danger rounded-4 btn-sm">Delete</button>
             </form>
           </th>
           <th>
-            <router-link :to="`/topic/update/${topic.id}`" class="btn btn-info rounded-4 btn-sm">Update</router-link>
+            <router-link v-if="auth.token ? user.data?.username === topic.starter?.username : false"
+                         :to="`/topic/update/${topic.id}`" class="btn btn-info rounded-4 btn-sm">
+              Update
+            </router-link>
           </th>
         </tr>
         </tbody>
@@ -94,11 +102,3 @@ const deleteTopic = async (id) => {
     </div>
   </div>
 </template>
-
-<style>
-.wh-7 {
-  width: 7rem;
-  height: 7rem;
-}
-
-</style>

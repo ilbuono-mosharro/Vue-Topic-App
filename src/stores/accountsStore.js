@@ -3,7 +3,6 @@ import axios from "axios";
 import {useAuthStore} from "./authStore.js";
 
 const base_url = "http://127.0.0.1:8000/api"
-const auth = useAuthStore()
 
 export const useAccountsStore = defineStore('accounts', {
     state: () => ({
@@ -15,6 +14,7 @@ export const useAccountsStore = defineStore('accounts', {
     }),
     actions: {
         async profile() {
+            const auth = useAuthStore()
             this.loading = true
             try {
                 const response = await axios.get(`${base_url}/accounts/profile/`,
@@ -31,6 +31,7 @@ export const useAccountsStore = defineStore('accounts', {
             }
         },
         async delete() {
+            const auth = useAuthStore()
             try {
                 const response = await axios.delete(`${base_url}/accounts/profile/`,
                     {
