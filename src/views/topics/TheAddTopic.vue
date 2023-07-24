@@ -7,10 +7,12 @@ import VueLogo from "../../assets/vue.svg";
 import TheAlert from "../../components/TheAlert.vue";
 import TheButton from "../../components/TheButton.vue";
 import TheInputField from "../../components/TheInputField.vue";
+import {useAlertStore} from "../../stores/alertStore.js";
 
 const topic = useTopicsStore()
 const categories = useCategoryStore()
 const router = useRouter()
+const alert =useAlertStore()
 
 const subject = ref("")
 const category = ref("")
@@ -25,6 +27,8 @@ const handleAddTopic = async () => {
   })
   if (topic.added) {
     await router.push({name: "home"})
+    alert.show = true
+    alert.message = "You have successfully added a topic."
   }
 }
 onMounted(
