@@ -11,6 +11,7 @@ export const useTopicsStore = defineStore('topics', {
             data: null,
             loading: false,
             error: null,
+            topicerror: null,
             topic: null,
             added:null,
             deleted:null,
@@ -23,8 +24,8 @@ export const useTopicsStore = defineStore('topics', {
                 this.loading = true
                 const response = await axios.get(`${base_url}/topics/`)
                 this.data = response.data
-            } catch (e) {
-                this.error = e.message
+            } catch (error) {
+                this.error = error.response.data
             } finally {
                 this.loading = false
             }
@@ -34,8 +35,8 @@ export const useTopicsStore = defineStore('topics', {
                 this.loading = true
                 const response = await axios.get(`${base_url}/topics/${id}/`)
                 this.topic = response.data
-            } catch (e) {
-                this.error = e.message
+            } catch (error) {
+                this.error = error.response.data
             } finally {
                 this.loading = false
             }
@@ -50,8 +51,8 @@ export const useTopicsStore = defineStore('topics', {
                     },
                 })
                 this.added = response.data
-            } catch (e) {
-                this.error = e.message
+            } catch (error) {
+                this.topicerror = error.response.data
             } finally {
                 this.loading = false;
             }
@@ -64,8 +65,8 @@ export const useTopicsStore = defineStore('topics', {
                     },
                 })
                 this.deleted = response.data
-            } catch (e) {
-                this.error = e.message
+            } catch (error) {
+                this.error = error.response.data
             }
         },
         async updateTopic(id, payload, token) {
@@ -77,8 +78,8 @@ export const useTopicsStore = defineStore('topics', {
                     },
                 })
                 this.updated = response.data
-            } catch (e) {
-                this.error = e.message
+            } catch (error) {
+                this.error = error.response.data
             } finally {
                 this.loading = false;
             }

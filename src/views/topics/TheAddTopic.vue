@@ -1,33 +1,36 @@
 <script setup>
 import {ref, onMounted} from "vue";
-import {useTopicsStore} from "../../stores/topicStore.js";
-import {useCategoryStore} from "../../stores/categoryStore.js";
 import {useRouter} from "vue-router";
+import {useAddTopicStore} from "../../stores/topics/addTopicStore.js";
+import {useCategoryStore} from "../../stores/categoryStore.js";
+import {useAlertStore} from "../../stores/alertStore.js";
 import VueLogo from "../../assets/vue.svg";
-import TheAlert from "../../components/TheAlert.vue";
 import TheButton from "../../components/TheButton.vue";
 import TheInputField from "../../components/TheInputField.vue";
-import {useAlertStore} from "../../stores/alertStore.js";
 
-const topic = useTopicsStore()
+
+const topic = useAddTopicStore()
 const categories = useCategoryStore()
-const router = useRouter()
 const alert =useAlertStore()
+const router = useRouter()
 
 const subject = ref("")
 const category = ref("")
 const body = ref("")
-const closeButton = ref(false)
-const closeAlert = () => closeButton.value = false
+
+
 const handleAddTopic = async () => {
-  await topic.addTopic({
+  await topic.add({
     subject: subject.value,
     category: category.value,
     body: body.value,
   })
-  if (topic.added) {
+  if (topic.data) {
+    topic.$reset()
     await router.push({name: "home"})
     alert.addAlert("You have successfully added a topic.")
+  } else {
+    alert.addAlert("Please fill in all fields correctly and try again.")
   }
 }
 onMounted(
@@ -39,9 +42,6 @@ onMounted(
 
 <template>
     <div class="col-12 col-md-6 col-lg-5">
-      <TheAlert v-if="topic.added && closeButton" p-class="alert alert-success alert-dismissible fade show"
-             @close="closeAlert" p-text="You have successfully added a topic."/>
-
       <form @submit.prevent="handleAddTopic">
         <div class="text-center">
           <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
@@ -49,6 +49,7 @@ onMounted(
         </div>
         <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject"
                        p-label="Subject" p-required />
+        <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
         <div class="form-floating mb-4">
           <select class="form-select" id="floatingSelect" v-model="category" aria-label="Floating label select example"
                   required>
