@@ -47,7 +47,7 @@ onMounted(
           <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
           <h1 class="h3 mb-3 fw-normal">Add a topic</h1>
         </div>
-        <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject"
+        <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject" p-id="id_subject"
                        p-label="Subject" p-required />
         <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
         <div class="form-floating mb-4">
@@ -61,7 +61,7 @@ onMounted(
           <label for="floatingSelect">Choose the category</label>
         </div>
         <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
-               p-label="Description" p-required />
+                       p-id="id_body" p-label="Description" p-required />
         <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
                 :p-text="topic.loading ? 'I am loading data' : 'Add'"
                 :p-disabled="!!topic.loading"/>

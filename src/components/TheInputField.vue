@@ -19,6 +19,10 @@ const props = defineProps({
     required: true,
     type: String,
   },
+  pId: {
+    required: true,
+    type: String,
+  },
   modelValue: {
     required: true,
     type: String,
@@ -31,8 +35,8 @@ defineEmits(['update:modelValue'])
   <div class="form-floating mb-4">
     <input :type="props.pType" :class="props.pClass" :value="props.modelValue"
            @input="$emit('update:modelValue', $event.target.value)"
-           :placeholder="props.pPlaceholder" :required="props.pRequired">
-    <label for="floatingInput">{{ pLabel }}</label>
+           :placeholder="props.pPlaceholder" :required="props.pRequired" :id="props.pId">
+    <label :for="props.pId">{{ pLabel }}</label>
   </div>
 </template>
 
