@@ -27,8 +27,7 @@ const handleAddTopic = async () => {
   })
   if (topic.added) {
     await router.push({name: "home"})
-    alert.show = true
-    alert.message = "You have successfully added a topic."
+    alert.addAlert("You have successfully added a topic.")
   }
 }
 onMounted(

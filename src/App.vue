@@ -1,6 +1,18 @@
 <script setup>
 import BaseLayout from "./components/BaseLayout.vue";
 import TheNavigation from "./components/TheNavigation.vue";
+import TheAlert from "./components/TheAlert.vue";
+import {useAlertStore} from "./stores/alertStore.js";
+import {ref} from "vue";
+
+const closeButton = ref(true)
+
+const alert = useAlertStore()
+const closeAlert = () => {
+  closeButton.value = false
+  alert.show = false
+  alert.message = ''
+}
 </script>
 
 <template>
@@ -9,6 +21,8 @@ import TheNavigation from "./components/TheNavigation.vue";
    <TheNavigation />
   </template>
   <template #default>
+    <TheAlert v-if="alert.show && closeButton" :p-text="alert.message"
+              p-class="alert alert-success alert-dismissible fade show" @close="closeAlert" />
     <router-view :key="$route.path"></router-view>
   </template>
   <template #footer>

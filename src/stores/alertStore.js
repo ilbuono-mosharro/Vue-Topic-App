@@ -6,7 +6,7 @@ export const useAlertStore = defineStore('alert', {
         message:'',
     }),
     actions: {
-        showAlert(msg) {
+        addAlert(msg) {
             this.show = true
             this.message = msg
         }
