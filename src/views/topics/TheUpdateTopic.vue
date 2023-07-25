@@ -8,6 +8,7 @@ import {useAlertStore} from "../../stores/alertStore.js";
 import VueLogo from "../../assets/vue.svg";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
+import TheSelectField from "../../components/TheSelectField.vue";
 
 const topic = useUpdateTopicsStore()
 const single = useGetTopicStore()
@@ -53,14 +54,7 @@ const handleUpdateTopic = async () => {
       <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject" p-label="Subject"
                      p-id="id_subject" p-required/>
       <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
-      <div class="form-floating mb-4">
-        <select class="form-select" id="floatingSelect" v-model="category" aria-label="Floating label select example">
-          <option disabled value="">Please select one</option>
-          <option v-for="(category, index) in categories.data" :key="index" :value="category.id">{{ category.name }}
-          </option>
-        </select>
-        <label for="floatingSelect">Choose the category</label>
-      </div>
+      <TheSelectField v-model="category" :options="categories.data" />
       <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
                      p-label="Description" p-id="id_body" p-required/>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"

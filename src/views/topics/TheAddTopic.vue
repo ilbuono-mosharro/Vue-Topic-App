@@ -51,7 +51,7 @@ onMounted(
       <TheInputField v-model="subject" p-type="text" p-class="form-control" p-placeholder="Subject" p-id="id_subject"
                      p-label="Subject" p-required/>
       <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
-      <TheSelectField v-model="category" :options="categories.data" />
+      <TheSelectField v-model="category" :options="categories.data"/>
       <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
                      p-id="id_body" p-label="Description" p-required/>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
