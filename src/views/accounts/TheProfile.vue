@@ -1,9 +1,9 @@
 <script setup>
 import {useAccountsStore} from "../../stores/accountsStore.js";
+import {useAuthStore} from "../../stores/authStore.js";
 import {onMounted} from "vue";
 import {useRouter} from "vue-router";
 import VueLogo from '../../assets/vue.svg'
-import {useAuthStore} from "../../stores/authStore.js";
 
 
 const route = useRouter()
@@ -17,7 +17,7 @@ onMounted(async () => {
 const handleDelete = async () => {
   await user.delete()
   localStorage.removeItem("token")
-  auth.token = null
+  auth.$reset()
   await route.push('/deleted')
 }
 

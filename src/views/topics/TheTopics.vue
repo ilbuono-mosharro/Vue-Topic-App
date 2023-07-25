@@ -30,13 +30,12 @@ const deleteTopic = async (id) => {
 
 const showMyTopic = () => {
   if (auth.token) {
-    topics.data = topics.data.filter(topic => topic?.starter?.username === user?.data?.username)
-    return topics.data
+    topics.userTopic(user.data.username)
   }
 }
-const showAll = async () => {
+const showAll = () => {
   if (auth.token) {
-    await topics.fetchTopics()
+    topics.topics()
   }
 }
 </script>
