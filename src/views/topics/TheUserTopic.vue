@@ -1,26 +1,21 @@
 <script setup>
 import {onMounted} from "vue";
-import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
 import {useAuthStore} from "../../stores/authStore.js";
 import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
-import {useAccountsStore} from "../../stores/accountsStore.js";
 import VueImage from "../../assets/vue.svg"
 import BannerFramework from "../../components/BannerFramework.vue";
 import TheLoader from "../../components/TheLoader.vue";
 import TheModal from "../../components/TheModal.vue";
+import {useUserTopicsStore} from "../../stores/topics/userTopicsStore.js";
 
 
-const user = useAccountsStore()
-const topics = useTopicsStore()
+const topics = useUserTopicsStore()
 const auth = useAuthStore()
 const topic = useDeleteTopicsStore()
 
 
 onMounted(async () => {
-  await topics.fetchTopics()
-  if (auth.token) {
-    await user.profile()
-  }
+  await topics.userTopics(`Token ${auth.token}`)
 })
 
 const deleteTopic = async (id) => {
@@ -38,11 +33,7 @@ const deleteTopic = async (id) => {
     <div v-else class="table-responsive">
       <div class="d-flex flex-row justify-content-between align-items-center mb-4">
         <div class="p-2">
-          <h5 class="pb-2 mb-0 text-center">{{ topics.total }} Topics</h5>
-        </div>
-        <div class="p-2">
-          <button v-if="auth.token" class="btn btn-link me-4" @click="showMyTopic">My topics</button>
-          <button v-if="auth.token" class="btn btn-link" @click="showAll">Show All</button>
+          <h5 class="pb-2 mb-0 text-center"> Topics</h5>
         </div>
         <div class="p-2">
           <router-link to="/topic/add" class="btn btn-primary rounded-4">Add Topic</router-link>
@@ -75,14 +66,12 @@ const deleteTopic = async (id) => {
           <th class="fw-normal">{{ topic.downvote }}</th>
           <th class="fw-normal">{{ topic.created_at }}</th>
           <th>
-            <TheModal v-if="auth.token ? user.data?.username === topic.starter?.username : false"
-                      p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
-                      :p-title="`Delete ${topic.subject}`"
-                      pb-class="btn btn-danger rounded-4 btn-sm" @done="deleteTopic(topic.id)"/>
+            <TheModal p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
+                      :p-title="`Delete ${topic.subject}`" pb-class="btn btn-danger rounded-4 btn-sm"
+                      @done="deleteTopic(topic.id)"/>
           </th>
           <th>
-            <router-link v-if="auth.token ? user.data?.username === topic.starter?.username : false"
-                         :to="`/topic/update/${topic.id}`" class="btn btn-info rounded-4 btn-sm">
+            <router-link :to="`/topic/update/${topic.id}`" class="btn btn-info rounded-4 btn-sm">
               Update
             </router-link>
           </th>

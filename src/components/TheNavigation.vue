@@ -34,7 +34,7 @@ const handleLogOut = async () => {
           </li>
         </ul>
         <div v-if="authentication.token">
-          <router-link to="/user-topics" class="btn btn-success rounded-4 me-3">My Topics</router-link>
+          <router-link to="/my-topics" class="btn btn-success rounded-4 me-3">My Topics</router-link>
           <router-link to="/profile" class="btn btn-success rounded-4 me-3">Profile</router-link>
           <button class="btn btn-secondary rounded-4" @click="handleLogOut">Log out</button>
         </div>
