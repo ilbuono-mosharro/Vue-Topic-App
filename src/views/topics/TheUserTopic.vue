@@ -2,11 +2,11 @@
 import {onMounted} from "vue";
 import {useAuthStore} from "../../stores/authStore.js";
 import {useDeleteTopicsStore} from "../../stores/topics/deleteTopicStore.js";
-import VueImage from "../../assets/vue.svg"
+import {useUserTopicsStore} from "../../stores/topics/userTopicsStore.js";
 import BannerFramework from "../../components/BannerFramework.vue";
 import TheLoader from "../../components/TheLoader.vue";
 import TheModal from "../../components/TheModal.vue";
-import {useUserTopicsStore} from "../../stores/topics/userTopicsStore.js";
+import TheTable from "../../components/TheTable.vue";
 
 
 const topics = useUserTopicsStore()
@@ -26,7 +26,7 @@ const deleteTopic = async (id) => {
 
 <template>
   <div class="p-3 bg-body rounded-4 shadow-sm">
-    <BannerFramework />
+    <BannerFramework p-class="bg-warning" />
     <div v-if="topics.loading" class="d-flex justify-content-center align-items-center py-5">
       <TheLoader p-class="spinner-border text-primary wh-7"/>
     </div>
@@ -36,48 +36,24 @@ const deleteTopic = async (id) => {
           <h5 class="pb-2 mb-0 text-center"> Topics</h5>
         </div>
         <div class="p-2">
+          <RouterLink to="/" class="btn btn-outline-warning rounded-4">Show all topics</RouterLink>
+        </div>
+        <div class="p-2">
           <router-link to="/topic/add" class="btn btn-primary rounded-4">Add Topic</router-link>
         </div>
       </div>
-      <table class="table table-borderless table-hover">
-        <thead>
-        <tr>
-          <th scope="col">Topic</th>
-          <th scope="col">Category</th>
-          <th scope="col"></th>
-          <th scope="col">Likes</th>
-          <th scope="col">Dislikes</th>
-          <th scope="col">Published</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(topic, index) in topics.data" :key="index">
-          <th scope="row" class="fw-normal">
-            <router-link :to="`/topic/${topic.id}`" class="text-dark text-decoration-none">
-              {{ topic.subject }}
-            </router-link>
-          </th>
-          <th class="fw-normal">{{ topic.category.name }}</th>
-          <th>
-            <img :src="topic.starter.avatar || VueImage" class="img-fluid rounded-5" width="35"
-                 height="25" alt=""/>
-          </th>
-          <th class="fw-normal">{{ topic.upvote }}</th>
-          <th class="fw-normal">{{ topic.downvote }}</th>
-          <th class="fw-normal">{{ topic.created_at }}</th>
-          <th>
-            <TheModal p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
-                      :p-title="`Delete ${topic.subject}`" pb-class="btn btn-danger rounded-4 btn-sm"
-                      @done="deleteTopic(topic.id)"/>
-          </th>
-          <th>
-            <router-link :to="`/topic/update/${topic.id}`" class="btn btn-info rounded-4 btn-sm">
-              Update
-            </router-link>
-          </th>
-        </tr>
-        </tbody>
-      </table>
+      <TheTable :options="topics.data" v-slot="slotProps">
+        <td>
+          <TheModal p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
+                    :p-title="`Delete ${slotProps.subject}`" pb-class="btn btn-danger rounded-4 btn-sm"
+                    @done="deleteTopic(slotProps.id)"/>
+        </td>
+        <td>
+          <router-link :to="`/topic/update/${slotProps.id}`" class="btn btn-info rounded-4 btn-sm">
+            Update
+          </router-link>
+        </td>
+      </TheTable>
     </div>
   </div>
 </template>
