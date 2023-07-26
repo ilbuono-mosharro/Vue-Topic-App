@@ -18,6 +18,10 @@ const routes = [
         name: "updateTopic", meta: {requiresAuth: true},
     },
     {
+        path: "/my-topics", component: () => import("../views/topics/TheUserTopic.vue"), name: "userTopics",
+        meta: {requiresAuth: true}
+    },
+    {
         path: "/sign-up", component: () => import("../views/registration/TheSignUp.vue"), name: "signup"
     },
     {
