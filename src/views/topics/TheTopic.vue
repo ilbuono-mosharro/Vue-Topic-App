@@ -20,14 +20,14 @@ onMounted(async () => {
 
 const upVoteSubmit = async () => {
   if (auth.token) {
-    await topic.upVote(Number(route.params.id))
+    await topic.upVote(Number(route.params.id), `Token ${auth.token}`)
   } else {
     await router.push({name: 'login', query: {redirect: route.fullPath}})
   }
 }
 const downVoteSubmit = async () => {
   if (auth.token) {
-    await topic.downVote(Number(route.params.id))
+    await topic.downVote(Number(route.params.id), `Token ${auth.token}`)
   } else {
     await router.push({name: 'login', query: {redirect: route.fullPath}})
   }
@@ -58,8 +58,8 @@ const downVoteSubmit = async () => {
             <div>
               <form @submit.prevent="upVoteSubmit">
                 <button class="btn btn-light align-middle">
-                   {{ topic.likes }} Likes <img
-                    :src="LikeImage" alt=""/>
+                   {{ topic.likes }} Likes
+                  <img :src="LikeImage" alt=""/>
                 </button>
               </form>
             </div>
@@ -67,8 +67,8 @@ const downVoteSubmit = async () => {
           <div class="p-2">
             <form @submit.prevent="downVoteSubmit">
               <button class="btn btn-light align-middle">
-                {{ topic.dislike }} Dislikes <img
-                  :src="DisLikeImage" alt=""/>
+                {{ topic.dislike }} Dislikes
+                <img :src="DisLikeImage" alt=""/>
               </button>
             </form>
           </div>

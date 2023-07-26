@@ -25,19 +25,18 @@ const routes = [
         meta: {requiresAuth: true}
     },
     {
-        path: '/deleted', component: () => import("../views/accounts/TheUserDeleteMessagge.vue"),
+        path: '/deleted', component: () => import("../views/messages/TheDelete.vue"),
         name: "deleted", meta: {requiresAuth: true},
     },
     {
-        path: "/sign-up/messagge", component: () => import("../views/messagges/TheSignUpMessagge.vue"),
-        name: "sgMessagge"
+        path: "/sign-up/message", component: () => import("../views/messages/TheInfo.vue"),
+        name: "info"
     },
     {
         path: "/login", component: () => import("../views/auth/TheLogin.vue"), name: "login"
     },
     {
         path: "/logout", component: () => import("../views/auth/TheLogout.vue"), name: "logout",
-        meta: {requiresAuth: true},
     },
 ]
 

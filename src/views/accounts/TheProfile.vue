@@ -11,11 +11,11 @@ const user = useAccountsStore()
 const auth = useAuthStore()
 
 onMounted(async () => {
-  await user.profile()
+  await user.profile(`Token ${auth.token}`)
 })
 
 const handleDelete = async () => {
-  await user.delete()
+  await user.delete(`Token ${auth.token}`)
   localStorage.removeItem("token")
   auth.$reset()
   await route.push('/deleted')

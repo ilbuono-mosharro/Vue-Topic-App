@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
-import {useAuthStore} from "./authStore.js";
 
 export const useAccountsStore = defineStore('accounts', {
     state: () => ({
@@ -11,13 +10,12 @@ export const useAccountsStore = defineStore('accounts', {
         errors: null,
     }),
     actions: {
-        async profile() {
-            const auth = useAuthStore()
+        async profile(token) {
             try {
                 const response = await axios.get("http://127.0.0.1:8000/api/accounts/profile/",
                     {
                         headers: {
-                            "Authorization": `Token ${auth.token}`,
+                            "Authorization": token,
                         },
                     })
                 this.data = response.data
@@ -27,13 +25,12 @@ export const useAccountsStore = defineStore('accounts', {
                 this.loading = false
             }
         },
-        async delete() {
-            const auth = useAuthStore()
+        async delete(token) {
             try {
                 const response = await axios.delete("http://127.0.0.1:8000/api/accounts/profile/",
                     {
                         headers: {
-                            "Authorization": `Token ${auth.token}`,
+                            "Authorization": token,
                         },
                     })
                 this.done = response.data

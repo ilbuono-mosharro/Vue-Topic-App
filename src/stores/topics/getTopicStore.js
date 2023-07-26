@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
-import {useAuthStore} from "../authStore.js";
 
 export const useGetTopicStore = defineStore('getTopicStore', {
     state: () => (
@@ -25,14 +24,13 @@ export const useGetTopicStore = defineStore('getTopicStore', {
                 this.loading = false
             }
         },
-        async upVote(id) {
-            const auth = useAuthStore()
+        async upVote(id, token) {
             try {
                 const response = await axios.put(
                     `http://127.0.0.1:8000/api/topics/${id}/user-upvote/`, {},
                     {
                         headers: {
-                            "Authorization": `Token ${auth.token}`,
+                            "Authorization": token,
                         },
                     })
                 this.data = response.data
@@ -42,14 +40,13 @@ export const useGetTopicStore = defineStore('getTopicStore', {
                 this.error = e.message
             }
         },
-        async downVote(id) {
+        async downVote(id, token) {
             try {
-                const auth = useAuthStore()
                 const response = await axios.put(
                     `http://127.0.0.1:8000/api/topics/${id}/user-downvote/`, {},
                     {
                         headers: {
-                            "Authorization": `Token ${auth.token}`,
+                            "Authorization": token,
                         },
                     })
                 this.data = response.data

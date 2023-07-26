@@ -1,5 +1,5 @@
 <script setup>
-import TheMessagges from "../../components/TheMessagges.vue";
+import TheMessagges from "../../components/TheMessage.vue";
 </script>
 
 <template>
