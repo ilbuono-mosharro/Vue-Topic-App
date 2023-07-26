@@ -3,12 +3,13 @@ import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        loading: true,
+        loading: false,
         error: null,
         token: JSON.parse(localStorage.getItem('token')) || null,
     }),
     actions: {
         async authentication(payload) {
+            this.loading = true
             try {
                 const response = await axios.post(
                     "http://127.0.0.1:8000/api/accounts/api-token-auth/", payload

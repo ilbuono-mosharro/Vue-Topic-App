@@ -1,15 +1,17 @@
 <script setup>
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {onMounted} from "vue";
 import {useGetTopicStore} from "../../stores/topics/getTopicStore.js";
-import {useVoteStore} from "../../stores/voteStore.js";
+import {useAuthStore} from "../../stores/authStore.js";
 import LikeImage from "../../assets/hand-thumbs-up.svg"
 import DisLikeImage from "../../assets/hand-thumbs-down.svg"
 import VueImage from "../../assets/vue.svg"
+import TheLoader from "../../components/TheLoader.vue";
 
 const route = useRoute()
+const router = useRouter()
 const topic = useGetTopicStore()
-const vote = useVoteStore()
+const auth = useAuthStore()
 
 onMounted(async () => {
   await topic.get(Number(route.params.id))
@@ -17,21 +19,28 @@ onMounted(async () => {
 
 
 const upVoteSubmit = async () => {
-  await vote.upvote(Number(route.params.id))
+  if (auth.token) {
+    await topic.upVote(Number(route.params.id))
+  } else {
+    await router.push({name: 'login', query: {redirect: route.fullPath}})
+  }
 }
 const downVoteSubmit = async () => {
-  await vote.downvote(Number(route.params.id))
+  if (auth.token) {
+    await topic.downVote(Number(route.params.id))
+  } else {
+    await router.push({name: 'login', query: {redirect: route.fullPath}})
+  }
 }
-
 </script>
 
 <template>
   <div class="col-12">
     <div class="card border-0">
-      <!--        <div v-if="topic.loading" class="d-flex justify-content-center align-items-center">-->
-      <!--          <Loader class-name="spinner-border text-primary wh-7"/>-->
-      <!--        </div>-->
-      <div class="card-body">
+      <div v-if="topic.loading" class="d-flex justify-content-center align-items-center">
+        <TheLoader p-class="spinner-border text-primary wh-7"/>
+      </div>
+      <div v-else class="card-body">
         <h1>{{ topic.data?.subject }}</h1>
         <p>{{ topic.data?.category.name }}</p>
         <div class="d-flex">
@@ -49,7 +58,7 @@ const downVoteSubmit = async () => {
             <div>
               <form @submit.prevent="upVoteSubmit">
                 <button class="btn btn-light align-middle">
-                  {{ vote.upvoteNum ? vote?.upvoteNum : topic?.data?.upvote_count }} Likes <img
+                   {{ topic.likes }} Likes <img
                     :src="LikeImage" alt=""/>
                 </button>
               </form>
@@ -58,7 +67,7 @@ const downVoteSubmit = async () => {
           <div class="p-2">
             <form @submit.prevent="downVoteSubmit">
               <button class="btn btn-light align-middle">
-                {{ vote.downvoteNum ? vote?.downvoteNum : topic?.data?.downvote_count }} Dislikes <img
+                {{ topic.dislike }} Dislikes <img
                   :src="DisLikeImage" alt=""/>
               </button>
             </form>

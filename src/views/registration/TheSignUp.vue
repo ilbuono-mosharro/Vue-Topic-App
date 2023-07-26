@@ -48,19 +48,19 @@ const handleSignUp = async () => {
           <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
         </div>
         <TheInputField v-model="username" p-type="text" p-class="form-control" p-placeholder="Username"
-                       p-label="Username" p-required/>
+                       p-label="Username" p-id="id_username" p-required/>
         <p v-if="registration?.error?.username" class="text-danger">{{ registration?.error?.username[0] }}</p>
         <TheInputField v-model="firstName" p-type="text" p-class="form-control" p-placeholder="First Name"
-                       p-label="First Name" p-required/>
+                       p-label="First Name" p-id="id_first_name" p-required/>
         <TheInputField v-model="lastName" p-type="text" p-class="form-control" p-placeholder="Last Name"
-                       p-label="Last Name" p-required/>
+                       p-label="Last Name" p-id="id_last_name" p-required/>
         <TheInputField v-model="email" p-type="email" p-class="form-control" p-placeholder="email" p-label="email"
-                       p-required/>
+                       p-id="id_email" p-required/>
         <p v-if="registration?.error?.email" class="text-danger">{{ registration?.error?.email[0] }}</p>
         <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
-                       p-label="Password" p-required/>
+                       p-label="Password" p-id="id_password" p-required/>
         <TheInputField v-model="password1" p-type="password" p-class="form-control" p-placeholder="Repeat Password"
-                       p-label="Repeat Password" p-required/>
+                       p-label="Repeat Password" p-id="id_password1" p-required/>
         <p v-if="registration?.error?.non_field_errors" class="text-danger">
           {{ registration?.error?.non_field_errors[0] }}
         </p>

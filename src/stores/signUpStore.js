@@ -5,10 +5,11 @@ export const useSignUpStore = defineStore('signUp', {
     state: () => ({
         data: null,
         error: null,
-        loading: true,
+        loading: false,
     }),
     actions: {
         async signUp(payload) {
+            this.loading = true;
             try {
                 const response = await axios.post(
                     "http://127.0.0.1:8000/api/accounts/sign-up/", payload

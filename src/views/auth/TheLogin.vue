@@ -5,9 +5,10 @@ import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg"
 import TheAlert from "../../components/TheAlert.vue";
 import {useAuthStore} from "../../stores/authStore.js";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()
+const route = useRoute()
 const login = useAuthStore()
 
 const username = ref('');
@@ -21,12 +22,15 @@ const handleLoginSubmit = async () => {
   const token = login.token
 
   if (token) {
-    await router.push("/")
+    // Retrieve the 'redirect' parameter from the URL querystring
+    const redirect = route.query.redirect || "/"
+    // Convert the 'redirect' parameter into a RouteLocationRaw object
+    const routerLocation = router.resolve({path: redirect})
+    await router.push(routerLocation)
   } else {
     closeButton.value = true
   }
 }
-
 </script>
 
 <template>
@@ -39,9 +43,9 @@ const handleLoginSubmit = async () => {
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       </div>
       <TheInputField v-model="username" p-type="text" p-class="form-control" p-placeholder="Username" p-label="Username"
-                     p-required/>
+                     p-id="id_username" p-required/>
       <TheInputField v-model="password" p-type="password" p-class="form-control" p-placeholder="Password"
-                     p-label="Password" p-required/>
+                     p-id="id_password" p-label="Password" p-required/>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
                  :p-text="login.loading ? 'I\'m checking your credentials' : 'Sign In'"
                  :p-disabled="login.loading"/>

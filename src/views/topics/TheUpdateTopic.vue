@@ -55,7 +55,6 @@ const handleUpdateTopic = async () => {
       <p v-if="topic?.error?.subject" class="text-danger">{{ topic?.error?.subject[0] }}</p>
       <div class="form-floating mb-4">
         <select class="form-select" id="floatingSelect" v-model="category" aria-label="Floating label select example">
-          <option disabled value="">Please select one</option>
           <option v-for="(category, index) in categories.data" :key="index" :value="category.id">{{ category.name }}
           </option>
         </select>
