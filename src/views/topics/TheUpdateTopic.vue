@@ -25,7 +25,7 @@ onMounted(async () => {
       await single.get(Number(route.params.id))
       await categories.fetchCategories()
       subject.value = single.data.subject
-      category.value = single.data.category
+      category.value = single.data.category.id
       body.value = single.data.body
     }
 )

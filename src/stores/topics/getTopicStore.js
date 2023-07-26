@@ -16,8 +16,8 @@ export const useGetTopicStore = defineStore('getTopicStore', {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/api/topics/${id}/`)
                 this.data = response.data
-                this.likes = this.data.upvote_count
-                this.dislike = this.data.downvote_count
+                this.likes = this.data.upvote
+                this.dislike = this.data.downvote
             } catch (e) {
                 this.error = e.response.data
             } finally {
@@ -33,9 +33,9 @@ export const useGetTopicStore = defineStore('getTopicStore', {
                             "Authorization": token,
                         },
                     })
-                this.data = response.data
-                this.likes = this.data.upvote_count
-                this.dislike = this.data.downvote_count
+                const data = response.data
+                this.likes = data.upvote
+                this.dislike = data.downvote
             } catch (e) {
                 this.error = e.message
             }
@@ -49,9 +49,9 @@ export const useGetTopicStore = defineStore('getTopicStore', {
                             "Authorization": token,
                         },
                     })
-                this.data = response.data
-                this.likes = this.data.upvote_count
-                this.dislike = this.data.downvote_count
+                const data = response.data
+                this.likes = data.upvote
+                this.dislike = data.downvote
             } catch (e) {
                 this.error = e.message
             }

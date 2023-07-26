@@ -77,14 +77,14 @@ const showAll = () => {
               {{ topic.subject }}
             </router-link>
           </th>
-          <th class="fw-normal">{{ topic.category_name }}</th>
+          <th class="fw-normal">{{ topic.category.name }}</th>
           <th>
             <img :src="topic.starter.avatar || VueImage" class="img-fluid rounded-5" width="35"
                  height="25" alt=""/>
           </th>
-          <th class="fw-normal">{{ topic.upvote_count }}</th>
-          <th class="fw-normal">{{ topic.downvote_count }}</th>
-          <th class="fw-normal">{{ topic.created_data }}</th>
+          <th class="fw-normal">{{ topic.upvote }}</th>
+          <th class="fw-normal">{{ topic.downvote }}</th>
+          <th class="fw-normal">{{ topic.created_at }}</th>
           <th>
             <TheModal v-if="auth.token ? user.data?.username === topic.starter?.username : false"
                       p-id="topic.id" p-text="Are you sure you want to delete it?" p-button="Delete"
