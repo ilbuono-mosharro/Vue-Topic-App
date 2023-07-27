@@ -42,6 +42,9 @@ const routes = [
     {
         path: "/logout", component: () => import("../views/auth/TheLogout.vue"), name: "logout",
     },
+    {
+        path: "/:pathMatch(.*)*", component: () => import("../components/TheNotFound.vue"), name: "notFound",
+    },
 ]
 
 const router = createRouter({
