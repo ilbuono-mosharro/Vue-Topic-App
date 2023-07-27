@@ -20,7 +20,6 @@ export const useUserTopicsStore = defineStore('userTopics', {
                         },
                     })
                 this.data = response.data
-                console.log(this.data)
             } catch (e) {
                 this.error = e.response.data
             } finally {
@@ -28,6 +27,9 @@ export const useUserTopicsStore = defineStore('userTopics', {
             }
         },
     },
+    getters: {
+        total: (state) => state?.data ? state.data.length : 0,
+    }
 })
 
 

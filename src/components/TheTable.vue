@@ -21,7 +21,7 @@ const props = defineProps({
     </tr>
     </thead>
     <tbody>
-    <tr v-for="(topic, index) in props.options" :key="index">
+    <tr v-if="props.options.length > 0" v-for="(topic, index) in props.options" :key="index">
       <td class="fw-normal">
         <router-link :to="`/topic/${topic.id}`" class="text-dark text-decoration-none">
           {{ topic.subject }}
@@ -36,6 +36,9 @@ const props = defineProps({
       <td class="fw-normal">{{ topic.downvote }}</td>
       <td class="fw-normal">{{ topic.created_at }}</td>
       <slot :id="topic.id" :subject="topic.subject"></slot>
+    </tr>
+    <tr v-else>
+      <td colspan="6" class="text-center p-5 h5">There is no data available.</td>
     </tr>
     </tbody>
   </table>

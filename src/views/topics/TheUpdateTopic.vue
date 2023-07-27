@@ -62,6 +62,7 @@ const handleUpdateTopic = async () => {
       </div>
       <TheInputField v-model="body" p-type="textarea" p-class="form-control" p-placeholder="Description"
                      p-label="Description" p-id="id_body" p-required/>
+      <p v-if="topic?.error?.body" class="text-danger">{{ topic?.error?.body[0] }}</p>
       <TheButton p-class="btn btn-primary w-100 py-2" p-type="submit"
                  :p-text="topic.loading ? 'I am updated the data' : 'Add'"
                  :p-disabled="!!topic.loading"/>

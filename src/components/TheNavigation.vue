@@ -34,9 +34,9 @@ const handleLogOut = async () => {
           </li>
         </ul>
         <div v-if="authentication.token">
-          <router-link to="/my-topics" class="btn btn-success rounded-4 me-3">My Topics</router-link>
-          <router-link to="/profile" class="btn btn-success rounded-4 me-3">Profile</router-link>
-          <button class="btn btn-secondary rounded-4" @click="handleLogOut">Log out</button>
+          <router-link to="/my-topics" class="btn btn-outline-warning fw-bold rounded-4 me-3">My Topics</router-link>
+          <router-link to="/profile" class="btn btn-outline-primary fw-bold rounded-4 me-3">Profile</router-link>
+          <button class="btn btn-outline-info fw-bold rounded-4" @click="handleLogOut">Log out</button>
         </div>
         <div v-else class="button d-flex justify-content-end">
           <router-link to="/sign-up" class="btn btn-warning rounded-4 me-3">Sign Up</router-link>

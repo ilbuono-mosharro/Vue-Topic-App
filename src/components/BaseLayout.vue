@@ -16,7 +16,7 @@ const closeAlert = () => {
   </header>
   <main class="container mt-4">
     <TheAlert v-if="alert.show" :p-text="alert.message"
-              p-class="alert alert-success alert-dismissible fade show mb-4" @close="closeAlert"/>
+              :p-class="{ show: alert.show}" @close="closeAlert"/>
     <div class="row justify-content-center align-items-center bg-body">
       <slot></slot>
     </div>

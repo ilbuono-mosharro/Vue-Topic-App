@@ -1,21 +1,20 @@
 <script setup>
 import {ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {useAuthStore} from "../../stores/authStore.js";
+import {useAlertStore} from "../../stores/alertStore.js";
 import TheInputField from "../../components/TheInputField.vue";
 import TheButton from "../../components/TheButton.vue";
 import VueLogo from "../../assets/vue.svg"
 import TheAlert from "../../components/TheAlert.vue";
-import {useAuthStore} from "../../stores/authStore.js";
-import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()
 const route = useRoute()
 const login = useAuthStore()
+const alert = useAlertStore()
 
 const username = ref('');
 const password = ref('');
-const closeButton = ref(false)
-
-const closeAlert = () => closeButton.value = false
 
 const handleLoginSubmit = async () => {
   await login.authentication({username: username.value, password: password.value})
@@ -28,15 +27,13 @@ const handleLoginSubmit = async () => {
     const routerLocation = router.resolve({path: redirect})
     await router.push(routerLocation)
   } else {
-    closeButton.value = true
+    alert.addAlert('Unable to log in with provided credentials.')
   }
 }
 </script>
 
 <template>
   <div class="col-12 col-md-6 col-lg-5">
-    <TheAlert v-if="login.error && closeButton" p-class="alert alert-warning alert-dismissible fade show"
-              @close="closeAlert" p-text="Unable to log in with provided credentials."/>
     <form @submit.prevent="handleLoginSubmit" class="py-4">
       <div class="text-center">
         <img class="mb-4 " :src="VueLogo" alt="" width="72" height="57">
