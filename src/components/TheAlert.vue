@@ -4,7 +4,7 @@ import VueLogo from '.././assets/vue.svg'
 const props = defineProps({
   pClass: {
     required: true,
-    type: String,
+    type: Object,
   },
   pText: {
     required: true,
@@ -17,14 +17,14 @@ defineEmits(['close'])
 
 <template>
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast fade" :class="pClass" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="liveToast" class="toast fade" :class="props.pClass" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <img :src="VueLogo" class="rounded me-2" alt="...">
         <strong class="me-auto">Notification</strong>
         <button type="button" class="btn-close" @click="$emit('close')" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        {{ pText }}
+        {{ props.pText }}
       </div>
     </div>
   </div>
