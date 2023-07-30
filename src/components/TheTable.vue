@@ -27,7 +27,7 @@ const props = defineProps({
           {{ topic.subject }}
         </router-link>
       </td>
-      <td class="fw-normal">{{ topic.category.name }}</td>
+      <td class="fw-normal">{{ topic.category }}</td>
       <td>
         <img :src="topic.starter.avatar || VueImage" class="img-fluid rounded-5" width="35"
              height="25" alt=""/>

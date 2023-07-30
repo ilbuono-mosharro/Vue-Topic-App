@@ -42,7 +42,7 @@ const downVoteSubmit = async () => {
       </div>
       <div v-else class="card-body">
         <h1>{{ topic.data?.subject }}</h1>
-        <p>{{ topic.data?.category?.name }}</p>
+        <p>{{ topic.data?.category }}</p>
         <div class="d-flex">
           <div class="flex-shrink-0">
             <img :src="topic.data?.starter?.avatar ? topic.data?.starter?.avatar : VueImage" alt="..."
