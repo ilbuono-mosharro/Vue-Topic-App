@@ -1,17 +1,21 @@
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useTopicsStore} from "../../stores/topics/fetchTopicsStore.js";
 import BannerFramework from "../../components/BannerFramework.vue";
 import TheLoader from "../../components/TheLoader.vue";
 import TheTable from "../../components/TheTable.vue";
-
+import SearchIcon from '../../assets/search.svg'
 
 const topics = useTopicsStore()
-
+const search = ref("")
 
 onMounted(async () => {
-  await topics.fetchTopics()
+  await topics.fetchTopics("http://127.0.0.1:8000/api/topics/")
 })
+
+const handleSearch = async () => {
+  await topics.fetchTopics(`http://127.0.0.1:8000/api/topics/?subject=${search.value}`)
+}
 </script>
 
 <template>
@@ -29,6 +33,17 @@ onMounted(async () => {
           <router-link to="/topic/add" class="btn btn-primary rounded-4">Add Topic</router-link>
         </div>
       </div>
+      <form @submit.prevent="handleSearch">
+        <div class="input-group">
+          <input type="text" v-model="search" class="form-control"
+                 placeholder="Type to search....">
+          <span class="input-group-text p-0">
+            <button class="btn btn-light btn-lg rounded-1" type="submit">
+              <img :src="SearchIcon" class="img-fluid" alt="" />
+            </button>
+          </span>
+        </div>
+      </form>
       <TheTable :options="topics.data" />
     </div>
   </div>

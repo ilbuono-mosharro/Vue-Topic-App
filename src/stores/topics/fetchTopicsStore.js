@@ -12,10 +12,10 @@ export const useTopicsStore = defineStore('fetchTopicsStore', {
         }
     ),
     actions: {
-        async fetchTopics() {
+        async fetchTopics(url) {
             this.loading = true
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/topics/")
+                const response = await axios.get(url)
                 this.data = response.data
             } catch (error) {
                 this.error = error.response.data
